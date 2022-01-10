@@ -50,7 +50,7 @@ jobs:
         id: deploy
         run: |
           aws deploy create-deployment \
-            --application-name application-name \
-            --deployment-group-name AppDeploymentGroupName \
+            --application-name CodeDeployGitHubDemo-App \
+            --deployment-group-name CodeDeployGitHubDemo-DepGrp \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
