@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Push-to-EC2
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Push to EC2 Instance
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v1
+
+      - name: Deploy to my EC2 instance
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: "ec2-3-84-8-132.compute-1.amazonaws.com"
+          REMOTE_USER: "ec2-user"
+          TARGET: "/home/ec2-user/SampleExpressApp"
